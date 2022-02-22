@@ -4,11 +4,11 @@ Very small api to handle a list of movies, is for a company test.
 
 Made with Laravel, MySql, PHPUnit and Heroku.
 
-##Heroku App
+## Heroku App
 This application is hosted on Heroku, integrated with this repository, for rapid testing:
 
 The routes are:
-####Index
+#### Index
 ```
 https://printi-movies.herokuapp.com/api/movies
 ```
@@ -26,7 +26,7 @@ https://printi-movies.herokuapp.com/api/movies?category=Action
 https://printi-movies.herokuapp.com/api/movies?category=Action&title=Spider
 ```
 
-####Store
+#### Store
 ```
 https://printi-movies.herokuapp.com/api/add/movie
 ```
