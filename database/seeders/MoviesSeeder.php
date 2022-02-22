@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Movies;
 use Illuminate\Database\Seeder;
 
-class MovieSeeder extends Seeder
+class MoviesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        //
+        Movies::factory(10)->create();
     }
 }
