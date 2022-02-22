@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MoviesController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/movies/list', [MovieController::class, 'index']);
-
-Route::get('movies/list', [MovieController::class, 'index']);
+Route::get('movies', [MoviesController::class, 'index']);
+Route::post('add/movie', [MoviesController::class, 'store']);
