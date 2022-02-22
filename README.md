@@ -67,3 +67,14 @@ php artisan key:generate
 php artisan migrate
 php artisan db:seed
 ```
+
+
+## Run tests
+You need to enter the app container:
+```
+sudo docker exec -ti printi-movies-laravel.test-1 /bin/bash
+```
+Inside the container, run:
+```
+vendor/bin/phpunit tests/Feature/MoviesTest.php 
+```
