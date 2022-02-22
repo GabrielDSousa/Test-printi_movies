@@ -40,7 +40,7 @@ class MoviesTest extends TestCase
     public function a_incomplete_request_cant_create_a_movie(): void
     {
         $attributes = [
-            "title" => $this->faker->title
+            "title" => $this->faker->sentence(3)
         ];
         $response = $this->post('/api/add/movie', $attributes);
         $this->assertDatabaseMissing('movies', $attributes);
@@ -57,5 +57,57 @@ class MoviesTest extends TestCase
         $response = $this->get('/api/movies');
         $response->assertStatus(200);
         $response->assertJsonCount(10);
+    }
+
+    /**
+     * A basic feature test for list movies with filters.
+     * @test
+     * @return void
+     */
+    public function a_filtered_list_of_movies(): void
+    {
+        $attributes = [
+            "title" => $this->faker->sentence(3),
+            "category" => $this->faker->word()
+        ];
+        $response = $this->post("/api/add/movie", $attributes);
+        $this->assertDatabaseHas("movies", $attributes);
+        $response->assertStatus(200);
+
+        $response = $this->get("/api/movies?title={$attributes['title']}");
+        $response->assertSeeText($attributes['title']);
+
+        $response = $this->get("/api/movies?category={$attributes['category']}");
+        $response->assertSeeText($attributes['category']);
+
+        $response = $this->get("/api/movies?category={$attributes['category']}&title={$attributes['title']}");
+        $response->assertSeeText($attributes['title']);
+        $response->assertSeeText($attributes['category']);
+    }
+
+    /**
+     * A basic feature test for list movies with wrong filters.
+     * @test
+     * @return void
+     */
+    public function a_wrong_filtered_list_of_movies(): void
+    {
+        $attributes = [
+            "title" => $this->faker->sentence(3),
+            "category" => $this->faker->word()
+        ];
+        $response = $this->post("/api/add/movie", $attributes);
+        $this->assertDatabaseHas("movies", $attributes);
+        $response->assertStatus(200);
+
+        $response = $this->get("/api/movies?title=RandomTextDifferentOfAnyTitle");
+        $response->assertDontSeeText($attributes['title']);
+
+        $response = $this->get("/api/movies?category=RandomTextDifferentOfAnyCategory}");
+        $response->assertDontSeeText($attributes['category']);
+
+        $response = $this->get("/api/movies?category=RandomTextDifferentOfAnyCategory&title=RandomTextDifferentOfAnyTitle");
+        $response->assertDontSeeText($attributes['title']);
+        $response->assertDontSeeText($attributes['category']);
     }
 }
