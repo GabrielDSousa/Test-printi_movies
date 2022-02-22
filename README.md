@@ -1,6 +1,6 @@
 ## About Project
 
-Very small api to handle a list of movies, is for a company test.
+Very small api to handle a list of movies for a company test.
 
 Made with Laravel, MySql, PHPUnit and Heroku.
 
